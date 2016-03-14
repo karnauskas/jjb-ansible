@@ -8,7 +8,7 @@ def ansibleplaybook(parser, xml_parent, data):
     """
     logger = logging.getLogger("%s:ansibleplaybook" % __name__)
     apb = XML.SubElement(xml_parent, 'org.jenkinsci.plugins.ansible.AnsiblePlaybookBuilder')
-    inventoryPath = XML.SubElement(apb, 'org.jenkinsci.plugins.ansible.InventoryPathorg.jenkinsci.plugins.ansible.InventoryPath')
+    inventoryPath = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryPath'})
 
     XML.SubElement(apb, 'playbook').text = data.get('playbook', 'deploy.yml')
     XML.SubElement(inventoryPath, 'path').text = data.get('inventory_path', '/etc/ansible/ec2.py')
