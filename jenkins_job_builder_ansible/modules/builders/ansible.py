@@ -9,9 +9,13 @@ def ansibleplaybook(parser, xml_parent, data):
     logger = logging.getLogger("%s:ansibleplaybook" % __name__)
     apb = XML.SubElement(xml_parent, 'org.jenkinsci.plugins.ansible.AnsiblePlaybookBuilder')
     inventoryPath = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryPath'})
+    inventoryContent = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryContent'})
 
     XML.SubElement(apb, 'playbook').text = data.get('playbook', 'deploy.yml')
-    XML.SubElement(inventoryPath, 'path').text = data.get('inventory_path', '/etc/ansible/ec2.py')
+    if data.get('inventory_path', '') != '':
+        XML.SubElement(inventoryPath, 'path').text = data.get('inventory_path', '')
+    elif data.get('inventory_content', '') != '':
+        XML.SubElement(inventoryContent, 'content').text = data.get('inventory_content', '')
     XML.SubElement(apb, 'limit').text = data.get('limit', '')
 
     XML.SubElement(apb, 'tags').text = data.get('tags', '')

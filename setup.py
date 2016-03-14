@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jenkins-job-builder-ansible',
-    version='0.1.0',
+    version='0.1.1',
     description='Ansible build step for Jenkins Job Builder',
     author='Marius Karnauskas',
     author_email='marius.karnauskas@gmail.com',
