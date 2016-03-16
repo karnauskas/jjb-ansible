@@ -12,9 +12,11 @@ def ansibleplaybook(parser, xml_parent, data):
     inventoryContent = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryContent'})
 
     XML.SubElement(apb, 'playbook').text = data.get('playbook', 'deploy.yml')
-    if data.get('inventory_path', '') != '':
+    ip = data.get('inventory_path', None)
+    ic = data.get('inventory_content', None)
+    if ip is not None:
         XML.SubElement(inventoryPath, 'path').text = data.get('inventory_path', '')
-    elif data.get('inventory_content', '') != '':
+    elif ip is None and ic is not None:
         XML.SubElement(inventoryContent, 'content').text = data.get('inventory_content', '')
     XML.SubElement(apb, 'limit').text = data.get('limit', '')
 
