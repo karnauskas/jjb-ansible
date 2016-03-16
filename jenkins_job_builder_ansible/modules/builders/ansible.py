@@ -8,18 +8,18 @@ def ansibleplaybook(parser, xml_parent, data):
     """
     logger = logging.getLogger("%s:ansibleplaybook" % __name__)
     apb = XML.SubElement(xml_parent, 'org.jenkinsci.plugins.ansible.AnsiblePlaybookBuilder')
-    inventoryPath = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryPath'})
-    inventoryContent = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryContent'})
 
     XML.SubElement(apb, 'playbook').text = data.get('playbook', 'deploy.yml')
     ip = data.get('inventory_path', None)
     ic = data.get('inventory_content', None)
     if ip is not None:
+        inventoryPath = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryPath'})
         XML.SubElement(inventoryPath, 'path').text = data.get('inventory_path', '')
     elif ip is None and ic is not None:
+        inventoryContent = XML.SubElement(apb, 'inventory', {'class':'org.jenkinsci.plugins.ansible.InventoryContent'})
         XML.SubElement(inventoryContent, 'content').text = data.get('inventory_content', '')
-    XML.SubElement(apb, 'limit').text = data.get('limit', '')
 
+    XML.SubElement(apb, 'limit').text = data.get('limit', '')
     XML.SubElement(apb, 'tags').text = data.get('tags', '')
     XML.SubElement(apb, 'skippedTags').text = data.get('skippedTags', '')
     XML.SubElement(apb, 'startAtTask').text = data.get('startAtTask', '')
