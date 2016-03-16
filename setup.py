@@ -16,5 +16,8 @@ setup(
             'ansibleplaybook=jenkins_job_builder_ansible.modules.builders.ansible:ansibleplaybook'
         ]
     },
+    install_requires = [
+        'jenkins-job-builder'
+    ],
     packages = find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"])
 )
